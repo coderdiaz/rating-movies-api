@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const rootRoute = (req, res) => {
+const rootRoute = async (req, res) => {
   if (req.method === 'GET') {
     const data = fs.readFileSync('./data.json');
     // json
@@ -8,10 +8,17 @@ const rootRoute = (req, res) => {
       'Content-Type': 'application/json',
     });
     res.write(data);
+    return res.end();
   } else if (req.method === 'POST') {
-    res.write('Created /');
+    const data = [];
+    req.on('data', (chunk) => {
+      return data.push(chunk);
+    });
+    req.on('end', () => {
+      res.write('Created /' + data);
+      res.end();
+    });
   }
-  return res.end();
 }
 
 module.exports = rootRoute;

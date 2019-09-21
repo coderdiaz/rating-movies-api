@@ -5,7 +5,7 @@ module.exports = {
   config: (req, res) => {
     if (req.url === '/') rootRoute(req, res);
     if (req.url === '/user') userRoute(req, res);
-    else
-      return res.end('Not found');
+    // else
+    //   return res.end('Not found');
   },
 };
