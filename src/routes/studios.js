@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
     });
   }
 
-  const studio = await User.findById(id).exec();
+  const studio = await Studio.findById(id).exec();
 
   if (!studio) {
     return res.status(404).json();
