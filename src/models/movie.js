@@ -1,4 +1,4 @@
-const mongoose = require('mongoose'); // Explain in Node Class
+import mongoose from 'mongoose';
 
 const MovieSchema = new mongoose.Schema({
   name: String,
@@ -13,4 +13,4 @@ const MovieSchema = new mongoose.Schema({
 });
 
 const MovieModel = mongoose.model('Movie', MovieSchema);
-module.exports = MovieModel; // Explain in Node Class
+export default MovieModel;
