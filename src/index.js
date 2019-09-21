@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import UsersRouter from './routes/users';
 import GenresRouter from './routes/genres';
 import DirectorRouter from './routes/directors';
+import StudiosRouter from './routes/studios';
 
 // Defining port
 const PORT = 3000;
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use('/users', UsersRouter);
 app.use('/genres', GenresRouter);
 app.use('/directors', DirectorRouter);
+app.use('/studios', StudiosRouter);
 
 // Connecting to Mongo Service
 mongoose.connect(`mongodb://localhost:27017/rating-movies`, {
