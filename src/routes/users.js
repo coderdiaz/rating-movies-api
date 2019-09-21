@@ -69,8 +69,6 @@ router.patch('/:id', async (req, res) => {
     return res.status(404).json();
   }
 
-  console.log(user);
-
   return res
     .status(200)
     .json(user);
