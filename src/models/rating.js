@@ -6,7 +6,7 @@ const RatingSchema = new mongoose.Schema({
   movie: { type: mongoose.Schema.Types.ObjectId, ref: 'Movie' },
 }, {
   timestamps: true,
-});
+})
 
 const RatingModel = mongoose.model('Rating', RatingSchema);
 export default RatingModel;
