@@ -1,15 +1,15 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import User from '../models/user';
+import Genre from '../models/genre';
 
 const router = express.Router();
 
-// GET: /
+//  GET: /
 router.get('/', async (req, res) => {
-  const users = await User.find().exec();
+  const genres = await Genre.find().exec();
   return res
     .status(200)
-    .json({ data: users });
+    .json({ data: genres });
 });
 
 // GET: /:id
@@ -23,25 +23,25 @@ router.get('/:id', async (req, res) => {
     });
   }
 
-  const user = await User.findById(id).exec();
+  const genre = await Genre.findById(id).exec();
 
-  if (!user) {
+  if (!genre) {
     return res.status(404).json();
   }
 
   return res
     .status(200)
-    .json(user);
+    .json(genre);
 });
 
 // POST: /
 router.post('/', async (req, res) => {
-  const { name, email } = req.body;
+  const { name, description } = req.body;
   // TODO: Add validations
 
-  // Generating a new User instance
-  const newUser = new User({ name, email });
-  await newUser.save();
+  // Generating a new Genre instance
+  const newGenre = new Genre({ name, description });
+  await newGenre.save();
 
   return res
     .status(201)
@@ -61,17 +61,17 @@ router.patch('/:id', async (req, res) => {
     });
   }
 
-  const user = await User.findByIdAndUpdate(id, {
+  const genre = await Genre.findByIdAndUpdate(id, {
     $set: { ...body }
   }, { new: true }).exec();
 
-  if (!user) {
+  if (!genre) {
     return res.status(404).json();
   }
 
   return res
     .status(200)
-    .json(user);
+    .json(genre);
 });
 
 router.delete('/:id', async (req, res) => {
@@ -83,7 +83,7 @@ router.delete('/:id', async (req, res) => {
     });
   }
   
-  await User.findByIdAndDelete(id).exec();
+  await Genre.findByIdAndDelete(id).exec();
   return res.status(200).json();
 });
 

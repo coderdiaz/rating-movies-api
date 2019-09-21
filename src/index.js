@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 
 // Importing routes
 import UsersRouter from './routes/users';
+import GenresRouter from './routes/genres';
+import DirectorRouter from './routes/directors';
 import StudiosRouter from './routes/studios';
 
 // Defining port
@@ -18,6 +20,8 @@ app.use(express.json());
 
 // Register routes
 app.use('/users', UsersRouter);
+app.use('/genres', GenresRouter);
+app.use('/directors', DirectorRouter);
 app.use('/studios', StudiosRouter);
 
 // Connecting to Mongo Service
