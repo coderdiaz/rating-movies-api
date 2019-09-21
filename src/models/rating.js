@@ -1,5 +1,4 @@
-// const mongoose = require('mongoose')
-import  mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const RatingSchema = new mongoose.Schema({
   user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
@@ -9,6 +8,5 @@ const RatingSchema = new mongoose.Schema({
   timestamps: true,
 })
 
-const RatingModel = mongoose.model('Rating', RatingSchema)
-// module.exports = RatingModel
-export default RatingModel
+const RatingModel = mongoose.model('Rating', RatingSchema);
+export default RatingModel;

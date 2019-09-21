@@ -1,33 +1,38 @@
-import '@babel/polyfill'
-import express from 'express'
-import mongoose from 'mongoose'
+import '@babel/polyfill';
+import express from 'express'; // const express = require('express');
+import mongoose from 'mongoose';
 
-//importting routes
-import UsersRouter from './routes/users'
-import ActorsRouter from './routes/actors'
+// Importing routes
+import UsersRouter from './routes/users';
+import GenresRouter from './routes/genres';
+import DirectorRouter from './routes/directors';
+import StudiosRouter from './routes/studios';
+import ActorsRouter from './routes/actors';
 
-// Defino mi puerto
-const PORT = 3000
-//creating express application
-const app = express()
-// adding middlewares for parse data from requests
-app.use(express.urlencoded({extended: true}))
-app.use(express.json())
+// Defining port
+const PORT = 3000;
+
+// Creating a express application
+const app = express();
+
+// Adding middlewares for parse incoming data from requests
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Register routes
-app.use('/users', UsersRouter)
-app.use('/actors', ActorsRouter)
+app.use('/users', UsersRouter);
+app.use('/genres', GenresRouter);
+app.use('/directors', DirectorRouter);
+app.use('/studios', StudiosRouter);
+app.use('/actors', ActorsRouter);
 
 // Connecting to Mongo Service
-mongoose.connect('mongodb://localhost:27017/rating-movies', {
-    userNewUrlParser: true
+mongoose.connect(`mongodb://localhost:27017/rating-movies`, {
+  useNewUrlParser: true
 }, (err) => {
-    if(err) throw err
-    // Mounting the app on specific PORT
-    app.listen(PORT, () => {
-        console.log(`Rating movies API is listening in port ${PORT}`)
-    })
-    
-})
-
-
+  if (err) throw err;
+  // Mounting the app on specific port
+  app.listen(PORT, () => {
+    console.log(`Rating Movies API is listening in port ${PORT}`);
+  });
+});

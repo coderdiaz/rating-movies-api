@@ -1,15 +1,15 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import User from '../models/user';
+import Studio from '../models/studio';
 
 const router = express.Router();
 
 // GET: /
 router.get('/', async (req, res) => {
-  const users = await User.find().exec();
+  const studios = await Studio.find().exec();
   return res
     .status(200)
-    .json({ data: users });
+    .json({ data: studios });
 });
 
 // GET: /:id
@@ -23,25 +23,25 @@ router.get('/:id', async (req, res) => {
     });
   }
 
-  const user = await User.findById(id).exec();
+  const studio = await Studio.findById(id).exec();
 
-  if (!user) {
+  if (!studio) {
     return res.status(404).json();
   }
 
   return res
     .status(200)
-    .json(user);
+    .json(studio);
 });
 
 // POST: /
 router.post('/', async (req, res) => {
-  const { name, email } = req.body;
+  const { name, description } = req.body;
   // TODO: Add validations
 
   // Generating a new User instance
-  const newUser = new User({ name, email });
-  await newUser.save();
+  const newStudio = new Studio({ name, description });
+  await newStudio.save();
 
   return res
     .status(201)
@@ -61,17 +61,19 @@ router.patch('/:id', async (req, res) => {
     });
   }
 
-  const user = await User.findByIdAndUpdate(id, {
+  const studio = await Studio.findByIdAndUpdate(id, {
     $set: { ...body }
   }, { new: true }).exec();
 
-  if (!user) {
+  if (!studio) {
     return res.status(404).json();
   }
 
+  console.log(studio);
+
   return res
     .status(200)
-    .json(user);
+    .json(studio);
 });
 
 router.delete('/:id', async (req, res) => {
@@ -83,7 +85,7 @@ router.delete('/:id', async (req, res) => {
     });
   }
   
-  await User.findByIdAndDelete(id).exec();
+  await Studio.findByIdAndDelete(id).exec();
   return res.status(200).json();
 });
 
