@@ -8,6 +8,7 @@ import GenresRouter from './routes/genres';
 import DirectorRouter from './routes/directors';
 import StudiosRouter from './routes/studios';
 import ActorsRouter from './routes/actors';
+import MoviesRouter from './routes/movies';
 
 // Defining port
 const PORT = 3000;
@@ -25,6 +26,7 @@ app.use('/genres', GenresRouter);
 app.use('/directors', DirectorRouter);
 app.use('/studios', StudiosRouter);
 app.use('/actors', ActorsRouter);
+app.use('/movies', MoviesRouter);
 
 // Connecting to Mongo Service
 mongoose.connect(`mongodb://localhost:27017/rating-movies`, {
