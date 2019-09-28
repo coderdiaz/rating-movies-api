@@ -4,7 +4,7 @@ import Movie from '../models/movie';
 const router = express.Router();
 
 // GET: /
-router.get('/', async (req, res) => {
+router.get('/',  async (req, res) => {
   const movies = await Movie
     .find()
     .populate('actors', 'name')

@@ -12,6 +12,9 @@ import ActorsRouter from './routes/actors';
 import MoviesRouter from './routes/movies';
 import AuthRouter from './routes/auth';
 
+// Middlewares
+import AuthMiddleware from './middlewares/auth.middleware';
+
 // Defining port
 const PORT = process.env.PORT || 3000;
 
@@ -24,12 +27,12 @@ app.use(express.json());
 
 // Register routes
 app.use('/auth', AuthRouter);
-app.use('/users', UsersRouter);
-app.use('/genres', GenresRouter);
-app.use('/directors', DirectorRouter);
-app.use('/studios', StudiosRouter);
-app.use('/actors', ActorsRouter);
-app.use('/movies', MoviesRouter);
+app.use('/users', AuthMiddleware, UsersRouter);
+app.use('/genres', AuthMiddleware, GenresRouter);
+app.use('/directors', AuthMiddleware, DirectorRouter);
+app.use('/studios', AuthMiddleware, StudiosRouter);
+app.use('/actors', AuthMiddleware, ActorsRouter);
+app.use('/movies', AuthMiddleware, MoviesRouter);
 
 // Connecting to Mongo Service
 mongoose.connect(process.env.MONGODB_URI, {

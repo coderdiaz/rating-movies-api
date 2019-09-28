@@ -7,8 +7,28 @@ const router = express.Router();
 
 // POST: /login
 router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email }).exec();
+  if (!user) {
+    return res.status(401).json({
+      message: "UNAUTHORIZED",
+    });
+  }
+
+  const verifyPassword = await bcrypt.compare(password, user.password);
+  if (!verifyPassword) {
+    return res.status(401).json({
+      message: "UNAUTHORIZED",
+    });
+  }
+
+  const token = await jwt.sign({ email }, process.env.JWT_SECRET, {
+    expiresIn: 120 * 60 * 1000,
+  });
+
   return res.json({
-    token: 'dummy',
+    token,
   });
 });
 
