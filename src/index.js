@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import "dotenv/config";
 import express from 'express'; // const express = require('express');
 import mongoose from 'mongoose';
 
@@ -9,9 +10,10 @@ import DirectorRouter from './routes/directors';
 import StudiosRouter from './routes/studios';
 import ActorsRouter from './routes/actors';
 import MoviesRouter from './routes/movies';
+import AuthRouter from './routes/auth';
 
 // Defining port
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Creating a express application
 const app = express();
@@ -21,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Register routes
+app.use('/auth', AuthRouter);
 app.use('/users', UsersRouter);
 app.use('/genres', GenresRouter);
 app.use('/directors', DirectorRouter);
@@ -29,7 +32,7 @@ app.use('/actors', ActorsRouter);
 app.use('/movies', MoviesRouter);
 
 // Connecting to Mongo Service
-mongoose.connect(`mongodb://localhost:27017/rating-movies`, {
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true
 }, (err) => {
   if (err) throw err;
