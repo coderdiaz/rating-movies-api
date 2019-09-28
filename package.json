@@ -2,7 +2,10 @@
   "name": "rating-movies-api",
   "version": "0.1.0",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "start": "node ./__build__",
+    "dev": "nodemon src/index.js",
+    "build": "babel ./src -d ./__build__ -D -s -q",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "bcrypt": "^3.0.6",
