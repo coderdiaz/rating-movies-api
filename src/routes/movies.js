@@ -1,10 +1,10 @@
 import express from 'express';
 import Movie from '../models/movie';
-
+import RoleMiddleware from '../middlewares/role.middleware';
 const router = express.Router();
 
 // GET: /
-router.get('/',  async (req, res) => {
+router.get('/', RoleMiddleware(['superadmin', 'admin', 'basic']),  async (req, res) => {
   const movies = await Movie
     .find()
     .populate('actors', 'name')
@@ -16,7 +16,7 @@ router.get('/',  async (req, res) => {
 });
 
 // POST: /
-router.post('/', async (req, res) => {
+router.post('/', RoleMiddleware(['superadmin', 'admin']), async (req, res) => {
   const {
     name,
     actors,
